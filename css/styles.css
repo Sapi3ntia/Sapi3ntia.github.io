@@ -1,0 +1,41 @@
+body {
+    font-family: system-ui, sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+header, main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+h1, h2 {
+    color: #00ff88;
+}
+a {
+    color: #00ff88;
+}
+a:hover {
+    text-decoration: underline;
+}
+button {
+    background: #00ff88;
+    color: #1a1a1a;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background: #00cc66;
+}
+.rainbow-mode {
+    animation: rainbow 10s linear infinite;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, purple);
+    background-size: 600%;
+}
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 600% 50%; }
+}
