@@ -4,29 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sapi3ntia</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
+    <div id="bg-grid"></div>
+    <main>
         <h1>Sapi3ntia</h1>
         <p>Rebooting as a Maker of Things</p>
         <button id="rainbow-toggle">Activate background rainbow mode</button>
-    </header>
-    <main>
         <section id="about">
             <h2>About</h2>
             <p>I'm Sapi3ntia, a coder building apps and scripts.</p>
         </section>
-        <section id="projects">
+        <section id="projects" class="grid-twos">
             <h2>Projects</h2>
-            <ul>
-                <li><a href="https://github.com/Sapi3ntia/project1">Project 1</a>: App</li>
-                <li><a href="https://github.com/Sapi3ntia/project2">Project 2</a>: Script</li>
-            </ul>
+            <article>
+                <a href="https://github.com/Sapi3ntia/project1">
+                    <img src="https://via.placeholder.com/80" alt="Project 1">
+                    <div>
+                        <h3>Project 1</h3>
+                        <p>A cool app I built.</p>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="https://github.com/Sapi3ntia/project2">
+                    <img src="https://via.placeholder.com/80" alt="Project 2">
+                    <div>
+                        <h3>Project 2</h3>
+                        <p>A fun script I made.</p>
+                    </div>
+                </a>
+            </article>
         </section>
-        <section id="contact">
+        <section id="contact" class="quick-links">
             <h2>Contact</h2>
-            <p><a href="https://github.com/Sapi3ntia">GitHub</a> | <a href="https://discord.gg/yourid">Discord</a></p>
+            <ul>
+                <li><a href="https://github.com/Sapi3ntia">GitHub</a></li>
+                <li><a href="https://discord.gg/yourid">Discord</a></li>
+            </ul>
         </section>
     </main>
     <script src="js/script.js"></script>
