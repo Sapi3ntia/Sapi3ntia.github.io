@@ -2,74 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Color Trail Demo</title>
-  <style>
-    .trail-square {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      opacity: 1;
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .trail-square.fade {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(2);
-    }
-    #rainbow-toggle {
-      position: fixed;
-      top: 1rem; right: 1rem;
-      padding: 0.5rem 1rem;
-      background: #222; color: #fff;
-      border: none; cursor: pointer;
-      font-family: sans-serif;
-    }
-  </style>
+  <title>Kognise-Style Cursor Trail</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <button id="rainbow-toggle">Rainbow: Off</button>
+  <main>
+    <h1>Hello, Mikhailovich!</h1>
+    <p>This is your custom interactive background test inspired by Kognise.dev.</p>
+  </main>
 
-  <script>
-    let hue = 0;
-    let rainbow = false;
-    const toggleBtn = document.getElementById('rainbow-toggle');
-
-    toggleBtn.addEventListener('click', () => {
-      rainbow = !rainbow;
-      toggleBtn.textContent = `Rainbow: ${rainbow ? 'On' : 'Off'}`;
-    });
-
-    document.body.addEventListener('mousemove', e => {
-      if (!rainbow) return;  // only spawn when rainbow is on
-      spawnSquare(e.clientX, e.clientY);
-    });
-
-    document.body.addEventListener('click', e => {
-      // on click, show a single square (regardless of rainbow mode)
-      spawnSquare(e.clientX, e.clientY, true);
-    });
-
-    function spawnSquare(x, y, force = false) {
-      // if rainbow is off and not forced (click), do nothing
-      if (!rainbow && !force) return;
-
-      const sq = document.createElement('div');
-      sq.className = 'trail-square';
-      // cycle hue on each square
-      sq.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
-      hue = (hue + 10) % 360;
-
-      sq.style.left = x + 'px';
-      sq.style.top  = y + 'px';
-      document.body.appendChild(sq);
-
-      // trigger fade + scale on the next frame
-      requestAnimationFrame(() => sq.classList.add('fade'));
-
-      // remove from DOM after animation ends
-      sq.addEventListener('transitionend', () => sq.remove());
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
