@@ -19,32 +19,35 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     display: grid;
     pointer-events: none;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
 }
 
 .grid-cell {
     --click-bg: transparent;
-    transition: background-color 0.8s ease;
-    opacity: 0.05;
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: background-color 0.8s, opacity 0.8s;
+    opacity: 0.1;
 }
 
 .grid-cell.hovered {
-    transition: background-color 0.4s ease, opacity 0.4s ease;
-    opacity: 0.6;
-}
-
-.grid-cell.hovered-fast-trans {
-    transition: background-color 0.1s ease, opacity 0.1s ease;
+    opacity: 0.5;
+    transition: background-color 0.4s, opacity 0.4s;
 }
 
 .grid-cell.clicked {
     background-color: var(--click-bg);
-    transition: background-color 0.2s ease, opacity 0.2s ease;
     opacity: 1;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.grid-cell.hovered-fast-trans {
+    transition: background-color 0.1s, opacity 0.1s;
 }
 
 /* Container styles */
@@ -63,22 +66,18 @@ body {
 
 header {
     margin-bottom: 2rem;
-}
-
-nav {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    align-items: center;
 }
 
-nav a {
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
+    font-size: 1.2rem;
     color: #333;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: #007bff;
+    margin-right: 1rem;
 }
 
 section {
@@ -96,8 +95,8 @@ p, ul {
 }
 
 ul {
-    list-style-position: inside;
-    padding-left: 1rem;
+    list-style-type: disc;
+    padding-left: 2rem;
 }
 
 a {
@@ -133,15 +132,28 @@ a:hover {
     border: 1px solid #000;
     cursor: pointer;
     margin-right: 8px;
+    position: relative;
 }
 
 #rainbow-toggle:checked {
     background-color: #333;
 }
 
+#rainbow-toggle:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    width: 6px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
 .rainbow-emoji {
     margin-left: 8px;
-    opacity: 0.3;
+    opacity: 0.5;
     transition: opacity 0.3s ease;
 }
 
