@@ -1,120 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const rainbowGrid = document.getElementById('rainbow-grid');
+    // Initialize rainbow mode from localStorage or default to false
+    window.rainbowMode = localStorage.getItem('rainbowMode') === 'true';
+    
+    // Set up grid
+    const grid = document.getElementById('bg-grid');
+    const rows = 5;
+    const columns = 5;
+    
+    // Create variables for tracking
+    let lastHovered = -1;
+    let mouseDown = false;
+    let lastHue = 0;
+    const prevDown = {};
+    
+    // Create grid cells
+    for (let i = 0; i < rows * columns; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'grid-cell';
+        grid.appendChild(cell);
+    }
+    
+    // Set grid template
+    grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    
+    // Set up rainbow toggle
     const rainbowToggle = document.getElementById('rainbow-toggle');
+    rainbowToggle.checked = window.rainbowMode;
     
-    // Setup rainbow grid
-    const gridCellSize = 50; // Size of each cell in pixels
-    const gridCellVisualSize = 8; // Visual size of the cell dot
-    
-    let isRainbowActive = false;
-    let mouseMoveTimeout;
-    let cellsArray = [];
-    
-    // Initialize grid
-    function initGrid() {
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
+    rainbowToggle.addEventListener('change', () => {
+        window.rainbowMode = rainbowToggle.checked;
+        localStorage.setItem('rainbowMode', window.rainbowMode);
         
-        const columns = Math.ceil(viewportWidth / gridCellSize);
-        const rows = Math.ceil(viewportHeight / gridCellSize);
-        
-        // Clear existing grid
-        rainbowGrid.innerHTML = '';
-        cellsArray = [];
-        
-        // Create grid cells
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < columns; col++) {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                
-                // Position cell at grid coordinates with centering offset
-                const offsetX = (gridCellSize - gridCellVisualSize) / 2;
-                const offsetY = (gridCellSize - gridCellVisualSize) / 2;
-                
-                cell.style.left = `${col * gridCellSize + offsetX}px`;
-                cell.style.top = `${row * gridCellSize + offsetY}px`;
-                
-                rainbowGrid.appendChild(cell);
-                
-                // Store cell reference with its position
-                cellsArray.push({
-                    element: cell,
-                    row: row,
-                    col: col,
-                    x: col * gridCellSize + offsetX,
-                    y: row * gridCellSize + offsetY
-                });
-            }
-        }
-    }
-    
-    // Generate random rainbow color
-    function getRandomRainbowColor() {
-        const hue = Math.floor(Math.random() * 360);
-        return `hsl(${hue}, 80%, 65%)`;
-    }
-    
-    // Handle mouse movement
-    function handleMouseMove(e) {
-        if (!isRainbowActive) return;
-        
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-        
-        // Calculate distances and update colors for cells around mouse
-        cellsArray.forEach(cell => {
-            const dx = mouseX - (cell.x + gridCellVisualSize / 2);
-            const dy = mouseY - (cell.y + gridCellVisualSize / 2);
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            // Only affect cells within certain radius
-            const maxDistance = 150;
-            if (distance < maxDistance) {
-                const opacity = 1 - (distance / maxDistance);
-                cell.element.style.opacity = opacity;
-                cell.element.style.backgroundColor = getRandomRainbowColor();
-                
-                // Reset cell opacity after some time
-                setTimeout(() => {
-                    cell.element.style.opacity = 0;
-                }, 2000);
-            }
-        });
-        
-        // Throttle mouse movement calculations for performance
-        clearTimeout(mouseMoveTimeout);
-        mouseMoveTimeout = setTimeout(() => {
-            // Optional: add additional effects here if needed
-        }, 50);
-    }
-    
-    // Toggle rainbow mode
-    function toggleRainbowMode() {
-        isRainbowActive = rainbowToggle.checked;
-        
-        if (isRainbowActive) {
-            rainbowGrid.style.opacity = 1;
-            document.addEventListener('mousemove', handleMouseMove);
-        } else {
-            rainbowGrid.style.opacity = 0;
-            document.removeEventListener('mousemove', handleMouseMove);
-            
-            // Reset all cells
-            cellsArray.forEach(cell => {
-                cell.element.style.opacity = 0;
+        // Update the grid cell states based on new rainbow mode
+        if (!window.rainbowMode) {
+            // Clear all cells when turning off rainbow mode
+            Array.from(grid.children).forEach(cell => {
+                cell.classList.remove('hovered', 'hovered-fast-trans', 'clicked');
             });
         }
+    });
+    
+    // Cell interaction handler
+    const render = (event) => {
+        const [x, y] = [event.clientX, event.clientY];
+        
+        // Calculate which cell the mouse is over
+        const row = Math.floor(y * rows / window.innerHeight);
+        const column = Math.floor(x * columns / window.innerWidth);
+        
+        // Get cell index
+        const cellIndex = row < rows && column < columns && row >= 0 && column >= 0
+            ? row * columns + column
+            : -1;
+        
+        // Update the currently hovered cell
+        if (cellIndex >= 0 && cellIndex < grid.children.length) {
+            const hovered = grid.children[cellIndex];
+            
+            // Apply color when clicked or in rainbow mode
+            if (!prevDown[cellIndex] && (mouseDown || window.rainbowMode)) {
+                const hue = (lastHue + 12 + Math.floor(Math.random() * 16)) % 360;
+                hovered.style.setProperty('--click-bg', `hsl(${hue}deg, 100%, 50%, 0.5)`);
+                lastHue = hue;
+            }
+            
+            // Add appropriate classes
+            hovered.classList.add('hovered');
+            hovered.classList.toggle('clicked', (mouseDown || window.rainbowMode));
+            hovered.classList.toggle('hovered-fast-trans', !prevDown[cellIndex] && !(mouseDown || window.rainbowMode));
+        }
+        
+        // Remove classes from the previously hovered cell if different
+        if (lastHovered >= 0 && lastHovered !== cellIndex && lastHovered < grid.children.length) {
+            grid.children[lastHovered].classList.remove('hovered', 'hovered-fast-trans', 'clicked');
+            prevDown[lastHovered] = false;
+        }
+        
+        // Update tracking variables
+        lastHovered = cellIndex;
+        if (cellIndex >= 0) {
+            prevDown[cellIndex] = mouseDown || window.rainbowMode;
+        }
+    };
+    
+    // Mouse event listeners
+    document.addEventListener('mousemove', render, { capture: true, passive: true });
+    document.addEventListener('mouseleave', () => render({ clientX: -1, clientY: -1 }), { passive: true });
+    document.addEventListener('mousedown', (event) => { mouseDown = true; render(event); }, { capture: true, passive: true });
+    document.addEventListener('mouseup', (event) => { mouseDown = false; render(event); }, { capture: true, passive: true });
+    document.addEventListener('dragend', (event) => { mouseDown = false; render(event); }, { capture: true, passive: true });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        // Reset the grid when window is resized
+        lastHovered = -1;
+        mouseDown = false;
+        
+        // Clear all cells
+        Array.from(grid.children).forEach(cell => {
+            cell.classList.remove('hovered', 'hovered-fast-trans', 'clicked');
+        });
+    });
+    
+    // Initial mouse position check (if rainbow mode is active)
+    if (window.rainbowMode) {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize with a default position if rainbow mode is active
+            // This ensures cells light up when the page loads with rainbow mode enabled
+            const event = new MouseEvent('mousemove', {
+                clientX: window.innerWidth / 2,
+                clientY: window.innerHeight / 2
+            });
+            render(event);
+        });
     }
-    
-    // Event listeners
-    rainbowToggle.addEventListener('change', toggleRainbowMode);
-    
-    // Initialize and handle window resizing
-    initGrid();
-    window.addEventListener('resize', initGrid);
-    
-    // Check if the toggle is initially checked from localStorage or other source
-    // For example, you could use: rainbowToggle.checked = localStorage.getItem('rainbowMode') === 'true';
-    // And then call toggleRainbowMode();
 });
