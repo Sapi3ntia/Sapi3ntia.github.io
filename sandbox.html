@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox - Interactive Playground</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="sandbox-page">
+    <div class="content">
+        <header>
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1>Sandbox Playground</h1>
+        </header>
+        
+        <main>
+            <!-- Morse Code Translator -->
+            <div class="morse-translator-container">
+                <div class="component-header">
+                    <h3>MORSE CODE TRANSLATOR</h3>
+                    <div class="component-controls">
+                        <button id="morse-guide-toggle" class="control-btn">📖 Guide</button>
+                        <button id="morse-clear" class="control-btn">🗑️ Clear</button>
+                    </div>
+                </div>
+                
+                <div class="morse-main">
+                    <div class="morse-input-section">
+                        <div class="input-group">
+                            <label for="text-input">Text</label>
+                            <textarea id="text-input" placeholder="Enter text to convert to Morse code..." rows="4"></textarea>
+                            <button class="copy-btn" data-target="text-input">📋 Copy</button>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="morse-input">Morse Code</label>
+                            <textarea id="morse-input" placeholder="Enter Morse code to convert to text..." rows="4"></textarea>
+                            <button class="copy-btn" data-target="morse-input">📋 Copy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="morse-visualization">
+                        <div class="visualization-header">
+                            <span>Morse Visualization</span>
+                            <button id="visual-mode-toggle" class="control-btn">🌊 Wave</button>
+                        </div>
+                        <div class="morse-display">
+                            <div class="morse-wave" id="morse-wave"></div>
+                            <div class="morse-dots" id="morse-dots"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="morse-controls">
+                        <button id="play-morse" class="play-button" disabled>▶️ Play Morse</button>
+                        <div class="speed-control">
+                            <label>Speed:</label>
+                            <input type="range" id="morse-speed" min="0.5" max="2" step="0.25" value="1">
+                            <span id="speed-display">1x</span>
+                        </div>
+                        <button id="stop-morse" class="stop-button" disabled>⏹️ Stop</button>
+                    </div>
+                </div>
+                
+                <!-- Morse Code Guide Modal -->
+                <div class="morse-guide-modal" id="morse-guide-modal" style="display: none;">
+                    <div class="modal-overlay">
+                        <div class="modal-content">
+                            <div class="guide-header">
+                                <h4>Morse Code Reference</h4>
+                                <button id="close-guide" class="close-btn">✕</button>
+                            </div>
+                            <div class="guide-content">
+                                <div class="guide-tabs">
+                                    <button class="guide-tab active" data-tab="letters">Letters</button>
+                                    <button class="guide-tab" data-tab="numbers">Numbers</button>
+                                    <button class="guide-tab" data-tab="punctuation">Punctuation</button>
+                                </div>
+                                <div class="guide-tab-content">
+                                    <div class="guide-section active" id="letters-section">
+                                        <div class="guide-grid" id="letters-grid"></div>
+                                    </div>
+                                    <div class="guide-section" id="numbers-section">
+                                        <div class="guide-grid" id="numbers-grid"></div>
+                                    </div>
+                                    <div class="guide-section" id="punctuation-section">
+                                        <div class="guide-grid" id="punctuation-grid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Conway's Game of Life -->
+            <div class="game-of-life-container">
+                <div class="component-header">
+                    <h3>CONWAY'S GAME OF LIFE</h3>
+                    <div class="component-controls">
+                        <button id="gol-theme-toggle" class="control-btn">🌙 Dark</button>
+                        <button id="gol-help-toggle" class="control-btn">❓ Help</button>
+                        <button id="gol-reset" class="control-btn">🔄 Reset</button>
+                    </div>
+                </div>
+                
+                <div class="gol-main">
+                    <div class="gol-controls">
+                        <div class="control-group">
+                            <button id="gol-start" class="play-button">▶️ Start</button>
+                            <button id="gol-pause" class="pause-button" disabled>⏸️ Pause</button>
+                            <button id="gol-step" class="step-button">⏭️ Step</button>
+                            <button id="gol-clear" class="clear-button">🗑️ Clear</button>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Speed:</label>
+                            <input type="range" id="gol-speed" min="50" max="500" step="50" value="200">
+                            <span id="gol-speed-display">200ms</span>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Grid Size:</label>
+                            <select id="grid-size">
+                                <option value="30x20">Small (30x20)</option>
+                                <option value="50x30" selected>Medium (50x30)</option>
+                                <option value="70x40">Large (70x40)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Pattern:</label>
+                            <select id="pattern-select">
+                                <option value="random">Random</option>
+                                <option value="glider">Glider</option>
+                                <option value="blinker">Blinker</option>
+                                <option value="toad">Toad</option>
+                                <option value="beacon">Beacon</option>
+                                <option value="clear">Clear Grid</option>
+                            </select>
+                            <button id="apply-pattern" class="control-btn">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <div class="gol-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Generation:</span>
+                            <span class="stat-value" id="generation-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Population:</span>
+                            <span class="stat-value" id="population-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Max Population:</span>
+                            <span class="stat-value" id="max-population">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="gol-canvas-container">
+                        <canvas id="gol-canvas" width="800" height="480"></canvas>
+                        <div class="canvas-overlay">
+                            <div class="instructions">Click cells to toggle • Use controls to start simulation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="gol-population-chart">
+                        <h4>Population History</h4>
+                        <canvas id="population-chart" width="400" height="150"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Game of Life Help Modal -->
+                <div class="gol-help-modal" id="gol-help-modal" style="display: none;">
+                    <div class="modal-overlay">
+                        <div class="modal-content">
+                            <div class="help-header">
+                                <h4>Conway's Game of Life</h4>
+                                <button id="close-help" class="close-btn">✕</button>
+                            </div>
+                            <div class="help-content">
+                                <div class="help-section">
+                                    <h5>Rules</h5>
+                                    <ul>
+                                        <li>Any live cell with 2 or 3 live neighbors survives</li>
+                                        <li>Any dead cell with exactly 3 live neighbors becomes alive</li>
+                                        <li>All other live cells die, and all other dead cells stay dead</li>
+                                    </ul>
+                                </div>
+                                <div class="help-section">
+                                    <h5>How to Use</h5>
+                                    <ul>
+                                        <li>Click on grid cells to toggle them alive/dead</li>
+                                        <li>Use patterns to create interesting starting configurations</li>
+                                        <li>Press Start to begin the simulation</li>
+                                        <li>Use Step to advance one generation at a time</li>
+                                    </ul>
+                                </div>
+                                <div class="help-section">
+                                    <h5>Famous Patterns</h5>
+                                    <ul>
+                                        <li><strong>Glider:</strong> A pattern that moves across the grid</li>
+                                        <li><strong>Blinker:</strong> A simple oscillator that flips between two states</li>
+                                        <li><strong>Toad:</strong> A 2-period oscillator</li>
+                                        <li><strong>Beacon:</strong> Another simple oscillator</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Link to Standalone Solar System -->
+            <div style="text-align: center; margin: 60px 0 30px 0;">
+                <h2 style="font-size: 2.5rem; color: #00d4ff; text-shadow: 0 0 20px rgba(0, 212, 255, 0.6); margin: 0;">Solar System</h2>
+                
+                <a href="solar-system.html" style="
+                    display: inline-block;
+                    background: linear-gradient(45deg, #667eea, #764ba2);
+                    color: white;
+                    text-decoration: none;
+                    padding: 20px 40px;
+                    border-radius: 30px;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+                    margin-top: 20px;
+                " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 40px rgba(102, 126, 234, 0.5)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(102, 126, 234, 0.3)'">
+                    🚀 Launch Solar System Explorer
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/morse-translator.js"></script>
+    <script src="js/game-of-life.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Try multiple Three.js CDN sources for reliability -->
+    <script src="https://unpkg.com/three@0.144.0/build/three.min.js" 
+            onerror="console.log('Primary Three.js CDN failed, trying backup...')"></script>
+    <script src="https://unpkg.com/three@0.144.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // Fallback Three.js loading
+        if (typeof THREE === 'undefined') {
+            console.log('Loading backup Three.js CDN...');
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r144/three.min.js';
+            script.onload = () => {
+                console.log('Backup Three.js loaded successfully');
+                // Load OrbitControls after Three.js
+                const controlsScript = document.createElement('script');
+                controlsScript.src = 'https://unpkg.com/three@0.144.0/examples/js/controls/OrbitControls.js';
+                document.head.appendChild(controlsScript);
+            };
+            script.onerror = () => console.error('Both Three.js CDNs failed to load');
+            document.head.appendChild(script);
+        } else {
+            console.log('Three.js loaded successfully from primary CDN:', THREE.REVISION);
+            // Check if OrbitControls loaded
+            setTimeout(() => {
+                if (typeof THREE.OrbitControls === 'undefined') {
+                    console.log('OrbitControls not found, loading backup...');
+                    const controlsScript = document.createElement('script');
+                    controlsScript.src = 'https://unpkg.com/three@0.144.0/examples/js/controls/OrbitControls.js';
+                    document.head.appendChild(controlsScript);
+                }
+            }, 100);
+        }
+    </script>
+    <script src="js/solar-system.js"></script>
+</body>
+</html> 

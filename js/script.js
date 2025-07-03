@@ -87,4 +87,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lastHovered = -1;
     });
+
+    // Add event handler to ignore clicks from solar system
+    const solarSystemContainer = document.querySelector('.solar-system-container');
+    
+    if (solarSystemContainer) {
+        // Add event to stop background grid from being triggered
+        solarSystemContainer.addEventListener('click', function(event) {
+            event.stopPropagation();
+            console.log('Solar system click intercepted');
+        }, true);
+        
+        // Also ensure all planet clicks are captured
+        const planetOverlays = document.querySelectorAll('.planet-overlay');
+        planetOverlays.forEach(overlay => {
+            overlay.addEventListener('click', function(event) {
+                event.stopPropagation();
+                console.log('Planet click intercepted');
+            }, true);
+        });
+    }
 });

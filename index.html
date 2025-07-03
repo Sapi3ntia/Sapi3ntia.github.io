@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
     <link rel="manifest" href="favicon/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="content">
@@ -22,18 +23,284 @@
         </header>
         
         <main>
-            <p>Interests, Curiosity</p>
+            <div class="market-tracker-container">
+                <div class="section-header">
+                    <h3>MARKET TRACKER</h3>
+                </div>
+                <div class="market-items">
+                    <div class="market-item" id="bitcoin">
+                        <div class="asset-icon">₿</div>
+                        <div class="asset-details">
+                            <div class="asset-name">Bitcoin</div>
+                            <div class="asset-price">--</div>
+                            <div class="asset-change">--</div>
+                        </div>
+                    </div>
+                    <div class="market-item" id="gold">
+                        <div class="asset-icon">Au</div>
+                        <div class="asset-details">
+                            <div class="asset-name">Gold</div>
+                            <div class="asset-price">--</div>
+                            <div class="asset-change">--</div>
+                        </div>
+                    </div>
+                    <div class="market-item" id="silver">
+                        <div class="asset-icon">Ag</div>
+                        <div class="asset-details">
+                            <div class="asset-name">Silver</div>
+                            <div class="asset-price">--</div>
+                            <div class="asset-change">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <ul>
-                <li><a href="#">ID</a> </li>
-                <li><a href="#">ID</a> </li>
+                <li><a href="#">ID</a></li>
+                <li><a href="#">ID</a></li>
                 <li><a href="#">ID</a></li>
             </ul>
-             <p>Future Projects:</p>
+            
+            <p>Future Projects:</p>
             <ul>
                 <li><a href="#">Market Analysis</a></li>
                 <li><a href="#">Neural Networks</a></li>
                 <li><a href="#">Lambda, Theta, Gamma</a></li>
             </ul>
+            
+            <!-- World Clock Section -->
+            <div class="world-clock-container">
+                <div class="section-header">
+                    <h3>WORLD CLOCK</h3>
+                </div>
+                <div class="clocks-grid">
+                    <div class="clock-item" data-timezone="Pacific/Honolulu">
+                        <div class="city-name">Honolulu</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="America/Los_Angeles">
+                        <div class="city-name">Los Angeles</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="America/New_York">
+                        <div class="city-name">New York</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="Europe/London">
+                        <div class="city-name">London</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="Europe/Berlin">
+                        <div class="city-name">Berlin</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="Europe/Moscow">
+                        <div class="city-name">Moscow</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="Asia/Shanghai">
+                        <div class="city-name">Shanghai</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="Asia/Tokyo">
+                        <div class="city-name">Tokyo</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                    <div class="clock-item" data-timezone="GMT">
+                        <div class="city-name">Elizabeth</div>
+                        <div class="digital-time">00:00:00</div>
+                    </div>
+                </div>
+                
+                <!-- Antarctica Weather Integration -->
+                <div class="antarctica-weather">
+                    <div class="weather-header">
+                        <h4>PRINCESS ELIZABETH STATION CONDITIONS</h4>
+                    </div>
+                    <div class="weather-grid">
+                        <div class="weather-main-compact">
+                            <div class="temp-display-compact">
+                                <span id="current-temp">--</span>°C
+                            </div>
+                            <div class="wind-display-compact">
+                                <div>Wind: <span id="current-wind">--</span> km/h</div>
+                                <div>Dir: <span id="current-wind-dir">--</span>°</div>
+                            </div>
+                        </div>
+                        <div class="weather-details-compact">
+                            <div class="detail-item-compact">
+                                <div class="detail-label">Feels Like</div>
+                                <div class="detail-value"><span id="feels-like">--</span>°C</div>
+                            </div>
+                            <div class="detail-item-compact">
+                                <div class="detail-label">Humidity</div>
+                                <div class="detail-value"><span id="humidity">--</span>%</div>
+                            </div>
+                            <div class="detail-item-compact">
+                                <div class="detail-label">Cloud Cover</div>
+                                <div class="detail-value"><span id="cloud-cover">--</span>%</div>
+                            </div>
+                            <div class="detail-item-compact">
+                                <div class="detail-label">Pressure</div>
+                                <div class="detail-value"><span id="pressure">--</span> hPa</div>
+                            </div>
+                            <div class="detail-item-compact">
+                                <div class="detail-label">UV Index</div>
+                                <div class="detail-value uv-display">
+                                    <span id="uv-index">--</span>
+                                    <div class="uv-indicator">
+                                        <div class="uv-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-item-compact">
+                                <div class="detail-label">Visibility</div>
+                                <div class="detail-value"><span id="visibility">--</span> km</div>
+                            </div>
+                        </div>
+                        <div class="temp-chart-compact">
+                            <div id="temp-chart" class="chart-container active"></div>
+                            <div id="uv-chart" class="chart-container"></div>
+                            <div id="wind-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                    <div class="data-updated">Last updated: <span id="update-time">--</span></div>
+                </div>
+            </div>
+            
+            <!-- Periodic Table Section -->
+            <div class="periodic-table-container">
+                <div class="section-header">
+                    <h3>PERIODIC TABLE OF ELEMENTS</h3>
+                </div>
+                
+                <div class="element-details-panel">
+                    <div class="element-details-content">
+                        <div class="element-symbol-large">--</div>
+                        <div class="element-name-large">Select an element</div>
+                        <div class="element-properties">
+                            <div class="property-row">
+                                <div class="property-label">Atomic Number:</div>
+                                <div class="property-value" id="atomic-number">--</div>
+                            </div>
+                            <div class="property-row">
+                                <div class="property-label">Atomic Mass:</div>
+                                <div class="property-value" id="atomic-mass">--</div>
+                            </div>
+                            <div class="property-row">
+                                <div class="property-label">Category:</div>
+                                <div class="property-value" id="category">--</div>
+                            </div>
+                            <div class="property-row">
+                                <div class="property-label">State:</div>
+                                <div class="property-value" id="state">--</div>
+                            </div>
+                            <div class="property-row">
+                                <div class="property-label">Electron Config:</div>
+                                <div class="property-value" id="electron-config">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="atom-visualization">
+                        <canvas id="atom-canvas" width="200" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <div class="periodic-table-grid">
+                    <!-- Periodic table will be generated by JavaScript -->
+                </div>
+                
+                <div class="element-categories">
+                    <div class="category-item alkali-metals">Alkali Metals</div>
+                    <div class="category-item alkaline-earth-metals">Alkaline Earth Metals</div>
+                    <div class="category-item transition-metals">Transition Metals</div>
+                    <div class="category-item post-transition-metals">Post-Transition Metals</div>
+                    <div class="category-item metalloids">Metalloids</div>
+                    <div class="category-item nonmetals">Nonmetals</div>
+                    <div class="category-item halogens">Halogens</div>
+                    <div class="category-item noble-gases">Noble Gases</div>
+                    <div class="category-item lanthanides">Lanthanides</div>
+                    <div class="category-item actinides">Actinides</div>
+                </div>
+            </div>
+            
+            <!-- Mini Arcade Section -->
+            <div class="mini-arcade">
+                <div class="planet large"></div>
+                <div class="planet small"></div>
+                <div class="alien-head"></div>
+                <div class="arcade-header">
+                    <div class="corner-text left">GAMES</div>
+                    <h2>MINI ARCADE</h2>
+                    <div class="corner-text right">EARTH</div>
+                </div>
+                
+                <div class="palm-trees">
+                    <div class="palm left"></div>
+                    <div class="arcade-games">
+                        <div class="game-button" id="snake-game">
+                            <div class="game-icon">🐍</div>
+                            <div class="game-name">Snake</div>
+                        </div>
+                        <div class="game-button" id="pong-game">
+                            <div class="game-icon">🏓</div>
+                            <div class="game-name">Pong</div>
+                        </div>
+                        <div class="game-button" id="memory-game">
+                            <div class="game-icon">🎮</div>
+                            <div class="game-name">Memory</div>
+                        </div>
+                        <div class="game-button" id="tictactoe-game">
+                            <div class="game-icon">❌⭕</div>
+                            <div class="game-name">Tic Tac Toe</div>
+                        </div>
+                        <div class="game-button" id="flappybird-game">
+                            <div class="game-icon">🐦</div>
+                            <div class="game-name">Flappy Bird</div>
+                        </div>
+                        <div class="game-button" id="2048-game">
+                            <div class="game-icon">2️⃣0️⃣</div>
+                            <div class="game-name">2048</div>
+                        </div>
+                        <div class="game-button" id="breakout-game">
+                            <div class="game-icon">🧱</div>
+                            <div class="game-name">Breakout</div>
+                        </div>
+                        <div class="game-button" id="space-race-game">
+                            <div class="game-icon">🚀</div>
+                            <div class="game-name">Space Race</div>
+                        </div>
+                        <div class="game-button" id="jet-fighter-game">
+                            <div class="game-icon">✈️</div>
+                            <div class="game-name">Jet Fighter</div>
+                        </div>
+                    </div>
+                    <div class="palm right"></div>
+                </div>
+                
+                <!-- Game container where games will be displayed -->
+                <div id="game-container" class="hidden">
+                    <div class="game-header">
+                        <button id="back-to-games">← Back</button>
+                        <h3 id="current-game-title">Game Title</h3>
+                    </div>
+                    <div id="game-canvas-container"></div>
+                </div>
+            </div>
+            
+            <!-- SANDBOX Environment Section -->
+            <div class="sandbox-link-container">
+                <div class="tumbleweed"></div>
+                <div class="tumbleweed" style="animation-delay: 3s;"></div>
+                <div class="tumbleweed" style="animation-delay: 6s;"></div>
+                
+                <a href="sandbox.html" class="sandbox-link">
+                    <div class="sandbox-header">
+                        <h2>SANDBOX</h2>
+                        <div class="sandbox-welcome">click to enter the playground...</div>
+                    </div>
+                </a>
+            </div>
         </main>
     </div>
 
@@ -41,5 +308,10 @@
     <div id="bg-grid" aria-hidden="true"></div>
 
     <script src="js/script.js"></script>
+    <script src="js/miniarcade.js"></script>
+    <script src="js/worldclock.js"></script>
+    <script src="js/periodictable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/market-tracker.js"></script>
 </body>
 </html>
